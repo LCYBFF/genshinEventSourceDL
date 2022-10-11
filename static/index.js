@@ -81,8 +81,9 @@ createApp({
         let link = document.createElement('a')
         link.setAttribute('download', downloadName)
         let image = new Image()
+        let time = new Date().getTime()
         // 添加时间戳，防止浏览器缓存图片
-        image.src = url + '?timestamp=' + new Date().getTime()
+        image.src = /\?/.test(url) ? url + '&timestamp=' + time : url + '?timestamp=' + time
         // 设置 crossOrigin 属性，解决图片跨域报错
         image.setAttribute('crossOrigin', 'Anonymous')
         image.onload = () => {
@@ -109,7 +110,8 @@ createApp({
                 let image = new Image()
                 image.setAttribute('crossOrigin', 'Anonymous') // 设置 crossOrigin 属性，解决图片跨域报错
                 // 添加时间戳，防止浏览器缓存图片
-                image.src = e.url + '?timestamp=' + new Date().getTime()
+                let time = new Date().getTime()
+                image.src = /\?/.test(e.url) ? e.url + '&timestamp=' + time : e.url + '?timestamp=' + time
                 image.onload = async() => {
                     let url = await that.getImageBase64(image)
                     fileList.push({
