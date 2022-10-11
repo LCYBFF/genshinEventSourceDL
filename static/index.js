@@ -74,7 +74,7 @@ createApp({
             .substring(image.src.lastIndexOf('.') + 1)
             .toLowerCase()
         // 某些图片 url 可能没有后缀名，默认是 png
-        return canvas.toDataURL('image/' + extension, 1)
+        return canvas.toDataURL('image/' + (extension ? extension : 'png'), 1)
     },
     downloadSingle(url, downloadName) {
         let that = this
@@ -103,6 +103,7 @@ createApp({
             let zip = new JSZip()
             let fileFolder = zip.folder(zipName) // 创建 zipName 文件夹
             let fileList = []
+            ElementPlus.ElMessage.warning('正在打包中。。。')
             this.list.forEach(e => {
                 let name = e.name
                 let image = new Image()
@@ -124,7 +125,7 @@ createApp({
                                 })
                             }
                             zip.generateAsync({ type: 'blob' }).then(content => {
-                                ElementPlus.ElMessage.success('解析完毕')
+                                ElementPlus.ElMessage.success('打包完毕')
                                 saveAs(content, zipName + '.zip')
                             })
                         }
