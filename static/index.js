@@ -28,7 +28,7 @@ createApp({
             let entries = resultObject.log.entries
             let list = []
             entries.forEach(e => {
-                if (/image/.test(e.response.content.mimeType) && ! /favicon.ico|hm.gif|google-analytics/.test(e.request.url)) {
+                if (/image/.test(e.response.content.mimeType) && ! /favicon.ico|hm.gif|google-analytics|cnzz/.test(e.request.url)) {
                     let url = e.request.url
                     let item = {
                         url: url,
